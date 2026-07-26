@@ -19,7 +19,7 @@ I finished by opening the hosted web page in a browser to confirm the environmen
 
 ## Architecture
 
-The environment uses an EC2 launch template to keep the web server configuration consistent. An Auto Scaling group maintains the required number of EC2 instances and can increase or decrease capacity when demand changes.
+The environment uses an EC2 launch template to keep the web server configuration consistent. An Auto Scaling group maintains the required number of EC2 instances and can increase or decrease capacity based on demand.
 
 An internet-facing Application Load Balancer distributes HTTP traffic across the web servers. Security groups control network access, while IAM policies control administrative permissions.
 
@@ -31,17 +31,25 @@ I also configured S3 cross-region replication to copy objects to a bucket in ano
 
 I created a security group for the web servers and configured it to allow HTTP traffic on port 80.
 
+![Security Group HTTP Configuration](screenshots/security-group-http-config.png)
+
 ### 2. Configure S3 Cross-Region Replication
 
 I configured replication between S3 buckets in separate AWS Regions. Bucket versioning was enabled to support replication.
+
+![S3 Replication Rules](screenshots/s3-replication-rules.png)
 
 ### 3. Create a Custom IAM Policy
 
 I created a customer-managed IAM policy to define permissions for web administration tasks.
 
+![IAM Policy Creation](screenshots/iam-policy-creation.png)
+
 ### 4. Create an EC2 Launch Template
 
 I created an EC2 launch template to provide a reusable configuration for launching web server instances.
+
+![EC2 Launch Template Creation](screenshots/ec2-launch-template-creation.png)
 
 ### 5. Configure the Auto Scaling Group
 
@@ -49,13 +57,19 @@ I created an Auto Scaling group with a desired capacity of two instances and a s
 
 I also configured a dynamic scaling policy so the environment could adjust capacity based on demand.
 
+![Auto Scaling Group Configuration](screenshots/asg-configuration.png)
+
 ### 6. Create the Application Load Balancer
 
 I created an internet-facing Application Load Balancer to receive HTTP requests and distribute traffic across the web servers.
 
+![Application Load Balancer Creation Success](screenshots/alb-creation-success.png)
+
 ### 7. Verify the Deployment
 
 I tested the environment by opening the web application in a browser. The page loaded successfully and displayed the private IP address of the EC2 instance serving the request.
+
+![Web Application Verification](screenshots/web-app-verification.png)
 
 ## Skills Demonstrated
 
@@ -70,7 +84,7 @@ I tested the environment by opening the web application in a browser. The page l
 
 ## What I Learned
 
-This project gave me hands-on experience connecting several AWS services to support a web application. I practiced securing resources, controlling access, creating reusable EC2 configurations, scaling compute capacity, replicating storage, and distributing traffic.
+This project gave me hands-on experience connecting several AWS services to support a web application. I practiced securing resources, controlling access, creating reusable EC2 configurations, scaling dynamically, and distributing traffic efficiently.
 
 I also practiced reviewing each resource after deployment and documenting the final setup clearly.
 
